@@ -1,0 +1,74 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Nazimov Aleksey I." id="add-state-tree">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="state_tree"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="state_tree" remarks="The state tree written in the SQL table">
+
+            <column name="id" type="NUMBER" remarks="The numerical primary key">
+                <constraints primaryKey="true" primaryKeyName="state_tree_id_pk"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="The time of creating">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
+
+            <column name="backward" type="NUMBER" remarks="The flag of the backward state transition">
+                <constraints nullable="false"/>
+            </column>
+            <column name="forward" type="NUMBER" remarks="The flag of the forward state transition">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="parent_id" type="NUMBER" remarks="The parent state foreign key"/>
+            <column name="dictionary_id" type="NUMBER" remarks="The state dictionary foreign key"/>
+            <column name="object_id" type="NUMBER" remarks="The state system object foreign key"/>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="add_state_tree_state_tree_fk" author="Nazimov Aleksey I">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="state_tree" columnName="parent_id"/>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="state_tree_parent_id_fk"
+                baseTableName="state_tree"
+                baseColumnNames="parent_id"
+                referencedTableName="state_tree"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_state_tree_state_dictionary_fk" author="Nazimov Aleksey I">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="state_tree" columnName="dictionary_id"/>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="state_tree_dictionary_id_fk"
+                baseTableName="state_tree"
+                baseColumnNames="dictionary_id"
+                referencedTableName="state_dictionary"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_state_tree_stateful_object_fk" author="Nazimov Aleksey I">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="state_tree" columnName="object_id"/>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="state_tree_object_id_fk"
+                baseTableName="state_tree"
+                baseColumnNames="object_id"
+                referencedTableName="stateful_object"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

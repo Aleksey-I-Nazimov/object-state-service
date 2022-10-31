@@ -1,0 +1,61 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Nazimov Aleksey I." id="add-concurrent-state-restriction">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="concurrent_state_restriction"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="concurrent_state_restriction" remarks="The table of concurrent restrictions between state trees of different systems">
+
+            <column name="id" type="NUMBER" remarks="The numerical primary key">
+                <constraints primaryKey="true" primaryKeyName="concurrent_state_restriction_id_pk"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="The time of creating">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
+
+            <column name="enabled" type="NUMBER" remarks="The flag of enabled restriction">
+                <constraints nullable="false"/>
+            </column>
+            <column name="info" type="VARCHAR(1024)" remarks="The restriction record info">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="primary_state_id" type="NUMBER" remarks="The main state which can block other states"/>
+            <column name="slave_state_id" type="NUMBER" remarks="The slave state which is blocked by the main state"/>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="add_concurrent_state_restriction_state_tree_fk_1" author="Nazimov Aleksey I">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="concurrent_state_restriction" columnName="primary_state_id"/>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="concurrent_state_restriction_primary_state_id_fk"
+                baseTableName="concurrent_state_restriction"
+                baseColumnNames="primary_state_id"
+                referencedTableName="state_tree"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_concurrent_state_restriction_state_tree_fk_2" author="Nazimov Aleksey I">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="concurrent_state_restriction" columnName="slave_state_id"/>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="concurrent_state_restriction_slave_state_id_fk"
+                baseTableName="concurrent_state_restriction"
+                baseColumnNames="slave_state_id"
+                referencedTableName="state_tree"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

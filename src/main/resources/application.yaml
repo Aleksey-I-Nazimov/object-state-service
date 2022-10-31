@@ -1,0 +1,11 @@
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.H2Dialect
+  liquibase:
+    enabled: true
+    drop-first: true
+    change-log: classpath:object_state_service_changelog.xml
+    default-schema: public

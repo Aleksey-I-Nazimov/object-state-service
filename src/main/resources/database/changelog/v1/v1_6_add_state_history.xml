@@ -1,0 +1,77 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Nazimov Aleksey I." id="add-state-history">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="state_history"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="state_history" remarks="The table of history state records">
+
+            <column name="id" type="NUMBER" remarks="The numerical primary key">
+                <constraints primaryKey="true" primaryKeyName="state_history_id_pk"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"
+                    remarks="The time of creating">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
+
+            <column name="order_id" type="VARCHAR(1024)" remarks="The order identifier of analyzed system request">
+                <constraints nullable="false"/>
+            </column>
+            <column name="actual" type="NUMBER" remarks="The flag of the history endpoint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="NUMBER" remarks="The millisecond UTC timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="current_state_id" type="NUMBER" remarks="The reference of the particular tree endpoint"/>
+            <column name="parent_id" type="NUMBER" remarks="The reference of the previous history state record"/>
+            <column name="status_id" type="NUMBER" remarks="The reference of the status description"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_state_history_state_tree_fk" author="Nazimov Aleksey I">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="state_history" columnName="current_state_id"/>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="state_history_current_state_id_fk"
+                baseTableName="state_history"
+                baseColumnNames="current_state_id"
+                referencedTableName="state_tree"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_state_history_state_history_fk" author="Nazimov Aleksey I">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="state_history" columnName="parent_id"/>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="state_history_parent_id_fk"
+                baseTableName="state_history"
+                baseColumnNames="parent_id"
+                referencedTableName="state_history"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_state_history_state_history_status_fk" author="Nazimov Aleksey I">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="state_history" columnName="status_id"/>
+        </preConditions>
+        <addForeignKeyConstraint
+                constraintName="state_history_status_id_fk"
+                baseTableName="state_history"
+                baseColumnNames="status_id"
+                referencedTableName="state_history_status"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,13 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <include file="v1_1_add_state_dictionary.xml" relativeToChangelogFile="true"/>
+    <include file="v1_2_add_state_history_status.xml" relativeToChangelogFile="true"/>
+    <include file="v1_3_add_stateful_object.xml" relativeToChangelogFile="true"/>
+    <include file="v1_4_add_state_tree.xml" relativeToChangelogFile="true"/>
+    <include file="v1_5_add_concurrent_state_restriction.xml" relativeToChangelogFile="true"/>
+    <include file="v1_6_add_state_history.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

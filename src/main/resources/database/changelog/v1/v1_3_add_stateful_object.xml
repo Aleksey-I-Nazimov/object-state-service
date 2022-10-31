@@ -1,0 +1,36 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Nazimov Aleksey I." id="add-stateful-object">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="stateful_object"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="stateful_object" remarks="The dictionary of objects associated with system states">
+            <column name="id" type="NUMBER" remarks="The numerical primary key">
+                <constraints primaryKey="true" primaryKeyName="stateful-object_id_pk"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="The time of creating">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
+
+            <column name="system_id" type="VARCHAR(255)" remarks="The system ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="system_code" type="VARCHAR(255)" remarks="The system code">
+                <constraints nullable="false"/>
+            </column>
+            <column name="info" type="VARCHAR(1024)" remarks="The system info">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>

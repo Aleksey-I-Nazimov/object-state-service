@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Nazimov Aleksey I." id="add-state-history-status">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="state_history_status"/>
+            </not>
+        </preConditions>
+        <createTable tableName="state_history_status" remarks="The dictionary of statuses of history states">
+
+            <column name="id" type="NUMBER" remarks="The numerical primary key">
+                <constraints primaryKey="true" primaryKeyName="state_history_status_id_pk"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="The time of creating">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
+
+            <column name="code" type="VARCHAR(255)" remarks="The status technical code">
+                <constraints nullable="false"/>
+            </column>
+            <column name="info" type="VARCHAR(1024)" remarks="The dictionary record info">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="insert-state-history-status" author="Nazimov Aleksey I.">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="state_history_status"/>
+        </preConditions>
+        <loadUpdateData
+                tableName="state_history_status"
+                primaryKey="id"
+                file="database/changelog/v1/state-history-statuses/data.csv"/>
+    </changeSet>
+
+</databaseChangeLog>

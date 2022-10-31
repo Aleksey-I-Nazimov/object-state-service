@@ -1,0 +1,3 @@
+﻿ID,CODE,INFO
+1,STARTED,The state was initialized but not completed
+2,COMPLETED,The state was completed fully
