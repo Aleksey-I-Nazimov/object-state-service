@@ -17,7 +17,7 @@
                 <constraints primaryKey="true" primaryKeyName="state_tree_id_pk"/>
             </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="The time of creating">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
 

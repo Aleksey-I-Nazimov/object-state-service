@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name="state_dictionary")
 public final class StateDictionaryEntity extends BasicEntity {
 
-    @Column(name="code",nullable = false)
+    @Column(name = "code", nullable = false, unique = true)
     private String code;
 
     @Column(name="info",nullable = false)

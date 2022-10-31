@@ -26,6 +26,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 
 @Component
+@Transactional
 public class StateTreeModelHolderImpl implements StateTreeModelHolder {
 
 
@@ -56,7 +57,6 @@ public class StateTreeModelHolderImpl implements StateTreeModelHolder {
 
     // Public API:-----------------------------------------------------------------------
     @Override
-    @Transactional
     public void insertNewTreeModel(final StateTreeModelDto stateTreeModel) {
 
         LOGGER.info("Accepted the new request of creating the tree model: {}", stateTreeModel);
@@ -66,7 +66,6 @@ public class StateTreeModelHolderImpl implements StateTreeModelHolder {
     }
 
     @Override
-    @Transactional
     public StateTreeModelDto readTreeModel(final StatefulObjectDto statefulObject) {
         LOGGER.info("Accepted the new request of reading existed tree model: {}", statefulObject);
 

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="concurrent_state_restriction")
 public final class ConcurrentStateRestrictionEntity extends BasicEntity {
 
-    @Column(name="primary_state_id")
+    @Column(name = "primary_state_id", unique = true)
     private long primaryStateId;
 
     @Column(name="slave_state_id")

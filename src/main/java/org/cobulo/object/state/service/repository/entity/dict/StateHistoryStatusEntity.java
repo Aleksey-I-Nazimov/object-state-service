@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name="state_history_status")
 public final class StateHistoryStatusEntity extends BasicEntity {
 
-    @Column(name="code",nullable = false)
+    @Column(name = "code", nullable = false, unique = true)
     private String code;
 
     @Column(name="info",nullable = false)

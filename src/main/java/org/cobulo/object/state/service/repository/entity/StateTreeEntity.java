@@ -25,7 +25,7 @@ public final class StateTreeEntity extends BasicEntity {
     @JoinColumn(name="parent_id")
     private StateTreeEntity parent;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<StateTreeEntity> childList;
 
     @ManyToOne

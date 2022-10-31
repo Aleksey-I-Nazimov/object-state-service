@@ -5,6 +5,7 @@ import org.cobulo.object.state.service.repository.entity.basics.BasicEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 
@@ -14,7 +15,10 @@ import javax.persistence.Table;
  * @author Nazimov Aleksey I.
  */
 @Entity
-@Table(name="stateful_object")
+@Table(
+        name = "stateful_object",
+        indexes = @Index(columnList = "system_id,system_code", unique = true)
+)
 public final class StatefulObjectEntity extends BasicEntity {
 
     @Column(name="system_id",nullable = false)

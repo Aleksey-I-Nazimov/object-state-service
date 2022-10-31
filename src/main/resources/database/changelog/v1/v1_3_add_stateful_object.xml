@@ -16,7 +16,7 @@
                 <constraints primaryKey="true" primaryKeyName="stateful-object_id_pk"/>
             </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="The time of creating">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
 
@@ -31,6 +31,12 @@
             </column>
         </createTable>
 
+    </changeSet>
+
+    <changeSet author="Nazimov Aleksey I." id="add_unique_constraint_of_stateful_object">
+        <addUniqueConstraint columnNames="system_id,system_code"
+                             constraintName="unique_constraint_of_stateful_object"
+                             tableName="stateful_object"/>
     </changeSet>
 
 </databaseChangeLog>

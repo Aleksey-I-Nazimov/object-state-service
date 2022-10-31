@@ -1,0 +1,112 @@
+{
+  "info": {
+    "_postman_id": "029493fc-a500-4fd1-b72c-ca0e3b9a63fa",
+    "name": "object-state-service-collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Getting all state dictionaries",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/read-dictionaries",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "read-dictionaries"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Inserting state dictionaries",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"dictionaryList\": [\r\n        {\r\n            \"code\": \"d1\",\r\n            \"info\": \"example d1\"\r\n        },\r\n        {\r\n            \"code\": \"d2\",\r\n            \"info\": \"example d2\"\r\n        },\r\n        {\r\n            \"code\": \"d3\",\r\n            \"info\": \"example d3\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/insert-new-dictionaries",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "insert-new-dictionaries"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Inserting the new state model",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"statefulObject\": {\r\n        \"systemId\": \"sysId2\",\r\n        \"systemCode\": \"sysCode2\",\r\n        \"info\": \"System for testing 2\"\r\n    },\r\n    \"stateTree\": {\r\n        \"backward\": false,\r\n        \"forward\": true,\r\n        \"dictionaryCode\": \"d1\",\r\n        \"childList\": [\r\n            {\r\n                \"backward\": true,\r\n                \"forward\": true,\r\n                \"dictionaryCode\": \"d2\",\r\n                \"childList\": [\r\n                    {\r\n                        \"backward\": true,\r\n                        \"forward\": false,\r\n                        \"dictionaryCode\": \"d3\",\r\n                        \"childList\": null\r\n                    }\r\n                ]\r\n            }\r\n        ]\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/insert-new-tree-model",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "insert-new-tree-model"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reading state model",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"systemId\": \"sysId\",\r\n        \"systemCode\": \"sysCode\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/read-tree-model",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "read-tree-model"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

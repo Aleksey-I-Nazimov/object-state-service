@@ -15,7 +15,7 @@
                 <constraints primaryKey="true" primaryKeyName="state_history_status_id_pk"/>
             </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="The time of creating">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
 
@@ -27,6 +27,12 @@
             </column>
 
         </createTable>
+    </changeSet>
+
+    <changeSet author="Nazimov Aleksey I." id="add_unique_constraint_of_status_dictionary_code">
+        <addUniqueConstraint columnNames="code"
+                             constraintName="unique_constraint_of_status_dictionary_code"
+                             tableName="state_history_status"/>
     </changeSet>
 
     <changeSet id="insert-state-history-status" author="Nazimov Aleksey I.">

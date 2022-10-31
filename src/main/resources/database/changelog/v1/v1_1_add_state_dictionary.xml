@@ -4,18 +4,20 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <changeSet author="Nazimov Aleksey I." id="add-state-dictionary">
+
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="state_dictionary"/>
             </not>
         </preConditions>
-        <createTable tableName="state_dictionary" remarks="The dictionary of states of state tree nodes">
+
+        <createTable tableName="state_dictionary" remarks="The dictionary of states of tree nodes">
 
             <column name="id" type="NUMBER" remarks="The numerical primary key">
                 <constraints primaryKey="true" primaryKeyName="state_dictionary_id_pk"/>
             </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="The time of creating">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
 
@@ -27,6 +29,12 @@
             </column>
 
         </createTable>
+    </changeSet>
+
+    <changeSet author="Nazimov Aleksey I." id="add_unique_constraint_of_dictionary_code">
+        <addUniqueConstraint columnNames="code"
+                             constraintName="unique_constraint_of_dictionary_code"
+                             tableName="state_dictionary"/>
     </changeSet>
 
 </databaseChangeLog>

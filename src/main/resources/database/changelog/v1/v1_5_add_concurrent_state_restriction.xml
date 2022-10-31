@@ -17,7 +17,7 @@
                 <constraints primaryKey="true" primaryKeyName="concurrent_state_restriction_id_pk"/>
             </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" remarks="The time of creating">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="updated_at" type="TIMESTAMP" valueComputed="SYSDATE" remarks="The time of updating"/>
 
@@ -32,6 +32,12 @@
             <column name="slave_state_id" type="NUMBER" remarks="The slave state which is blocked by the main state"/>
         </createTable>
 
+    </changeSet>
+
+    <changeSet author="Nazimov Aleksey I." id="add_unique_constraint_of_concurrent_state_restrictions">
+        <addUniqueConstraint columnNames="primary_state_id"
+                             constraintName="unique_constraint_of_concurrent_state_restrictions"
+                             tableName="concurrent_state_restriction"/>
     </changeSet>
 
     <changeSet id="add_concurrent_state_restriction_state_tree_fk_1" author="Nazimov Aleksey I">
