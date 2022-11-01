@@ -12,7 +12,7 @@ import javax.persistence.*;
 public final class StateHistoryEntity extends BasicEntity {
 
     /*
-    The columns current_state_id, parent_id, status_id are generated automatically
+    The columns current_state_id, parent_id, status_id, object_id are generated automatically
      */
     @Column(name="order_id",nullable = false)
     private String orderId;
@@ -24,7 +24,11 @@ public final class StateHistoryEntity extends BasicEntity {
     private long timestamp;
 
     @ManyToOne
-    @JoinColumn(name="current_state_id")
+    @JoinColumn(name = "object_id", nullable = false)
+    private StatefulObjectEntity statefulObject;
+
+    @ManyToOne
+    @JoinColumn(name = "current_state_id", nullable = false)
     private StateTreeEntity stateTree;
 
     @OneToOne
@@ -32,7 +36,7 @@ public final class StateHistoryEntity extends BasicEntity {
     private StateHistoryEntity parent;
 
     @ManyToOne
-    @JoinColumn(name="status_id")
+    @JoinColumn(name = "status_id", nullable = false)
     private StateHistoryStatusEntity stateHistoryStatus;
 
 
@@ -58,6 +62,14 @@ public final class StateHistoryEntity extends BasicEntity {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public StatefulObjectEntity getStatefulObject() {
+        return statefulObject;
+    }
+
+    public void setStatefulObject(StatefulObjectEntity statefulObject) {
+        this.statefulObject = statefulObject;
     }
 
     public StateTreeEntity getStateTree() {
@@ -87,9 +99,10 @@ public final class StateHistoryEntity extends BasicEntity {
     @Override
     public String toString() {
         return "StateHistoryEntity{" +
-                " orderId='" + orderId + '\'' +
+                "orderId='" + orderId + '\'' +
                 ", actual=" + actual +
                 ", timestamp=" + timestamp +
+                ", statefulObject=" + statefulObject +
                 ", stateTree=" + stateTree +
                 ", parent=" + parent +
                 ", stateHistoryStatus=" + stateHistoryStatus +

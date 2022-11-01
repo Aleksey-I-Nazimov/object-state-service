@@ -6,6 +6,7 @@ public final class StateTreeDto {
 
     private boolean backward;
     private boolean forward;
+    private String stateCode;
     private String dictionaryCode;
     private List<StateTreeDto> childList;
 
@@ -23,6 +24,14 @@ public final class StateTreeDto {
 
     public void setForward(boolean forward) {
         this.forward = forward;
+    }
+
+    public String getStateCode() {
+        return stateCode;
+    }
+
+    public void setStateCode(String stateCode) {
+        this.stateCode = stateCode;
     }
 
     public String getDictionaryCode() {
@@ -47,6 +56,7 @@ public final class StateTreeDto {
         return "StateTreeDto{" +
                 "backward=" + backward +
                 ", forward=" + forward +
+                ", stateCode='" + stateCode + '\'' +
                 ", dictionaryCode='" + dictionaryCode + '\'' +
                 ", childList=" + childList +
                 '}';

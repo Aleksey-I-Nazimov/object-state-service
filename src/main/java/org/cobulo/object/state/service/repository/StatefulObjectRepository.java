@@ -10,6 +10,9 @@ import java.util.Optional;
 @Repository
 public interface StatefulObjectRepository extends CrudRepository<StatefulObjectEntity,Long> {
 
-    Optional<StatefulObjectEntity> findBySystemIdAndSystemCode(String systemId, String systemCode);
+    Optional<StatefulObjectEntity> findBySystemIdAndSystemCode(
+            String systemId,
+            String systemCode
+    );
 
 }

@@ -32,9 +32,16 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="current_state_id" type="NUMBER" remarks="The reference of the particular tree endpoint"/>
+            <column name="current_state_id" type="NUMBER" remarks="The reference of the particular tree endpoint">
+                <constraints nullable="false"/>
+            </column>
             <column name="parent_id" type="NUMBER" remarks="The reference of the previous history state record"/>
-            <column name="status_id" type="NUMBER" remarks="The reference of the status description"/>
+            <column name="status_id" type="NUMBER" remarks="The reference of the status description">
+                <constraints nullable="false"/>
+            </column>
+            <column name="object_id" type="NUMBER" remarks="The state system object foreign key">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

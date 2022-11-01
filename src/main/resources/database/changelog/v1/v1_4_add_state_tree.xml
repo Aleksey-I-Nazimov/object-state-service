@@ -27,12 +27,25 @@
             <column name="forward" type="NUMBER" remarks="The flag of the forward state transition">
                 <constraints nullable="false"/>
             </column>
+            <column name="state_code" type="VARCHAR(255)" remarks="The special key used for external state bindings">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="parent_id" type="NUMBER" remarks="The parent state foreign key"/>
-            <column name="dictionary_id" type="NUMBER" remarks="The state dictionary foreign key"/>
-            <column name="object_id" type="NUMBER" remarks="The state system object foreign key"/>
+            <column name="dictionary_id" type="NUMBER" remarks="The state dictionary foreign key">
+                <constraints nullable="false"/>
+            </column>
+            <column name="object_id" type="NUMBER" remarks="The state system object foreign key">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
+    </changeSet>
+
+    <changeSet author="Nazimov Aleksey I." id="add_unique_constraint_of_state_code_and_object">
+        <addUniqueConstraint columnNames="state_code,object_id"
+                             constraintName="unique_constraint_of_state_code_and_object"
+                             tableName="state_tree"/>
     </changeSet>
 
     <changeSet id="add_state_tree_state_tree_fk" author="Nazimov Aleksey I">

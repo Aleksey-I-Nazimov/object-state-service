@@ -48,6 +48,7 @@ public interface StateTreeModelMapping {
     @Mapping(target = "forward", source = "forward")
     @Mapping(target = "childList", source = "childList")
     @Mapping(target = "stateDictionary", source = "dictionaryCode")
+    @Mapping(target = "stateCode", source = "stateCode")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
@@ -80,6 +81,7 @@ public interface StateTreeModelMapping {
     @Mapping(target = "forward", source = "forward")
     @Mapping(target = "childList", source = "childList")
     @Mapping(target = "dictionaryCode", source = "stateDictionary.code")
+    @Mapping(target = "stateCode", source = "stateCode")
     StateTreeDto makeStateTreeDto(StateTreeEntity stateTreeDto);
 
 }
